@@ -1,7 +1,6 @@
 # url: https://leetcode.com/problems/the-most-booked-hotel-room/
 
 import heapq
-from collections import deque
 
 
 class Solution:
