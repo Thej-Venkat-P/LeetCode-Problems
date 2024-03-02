@@ -2,34 +2,32 @@
 
 
 class Solution:
-
     def minWindow(self, s: str, t: str) -> str:
-
-        if len(s) < len(t):
+        if len(t) > len(s):
             return ""
-
-        counts = collections.Counter(t)
-        counts_t = collections.defaultdict(int)
-        for i in counts:
-            counts_t[i] = counts[i]
+        counts = collections.defaultdict(int)
+        for char in t:
+            counts[char] += 1
 
         start = 0
-        need_count = len(t)
-        ans = (0, len(s))
+        st = set(t)
+        ans = (-1, len(s))
+        needed = len(t)
 
-        for i, char in enumerate(s):
-            if counts_t[char] > 0:
-                need_count -= 1
-            counts_t[char] -= 1
-            if need_count == 0:
-                while s[start] not in counts_t or counts_t[s[start]] < 0:
-                    if s[start] in counts_t:
-                        counts_t[s[start]] += 1
+        for end, char in enumerate(s):
+            if counts[(char)] > 0:
+                needed -= 1
+            counts[(char)] -= 1
+
+            if needed == 0:
+                while s[start] not in st or counts[s[start]] < 0:
+                    counts[s[start]] += 1
                     start += 1
-                if i - start < ans[1] - ans[0]:
-                    ans = (start, i)
-                counts_t[s[start]] += 1
-                need_count += 1
+                    
+                if end - start + 1 < ans[1] - ans[0]:
+                    ans = (start, end + 1)
+                counts[s[start]] += 1
                 start += 1
+                needed += 1
 
-        return "" if ans[1] == len(s) else s[ans[0] : ans[1] + 1]
+        return "" if ans[0] == -1 else s[ans[0]:ans[1]]
