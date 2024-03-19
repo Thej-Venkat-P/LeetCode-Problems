@@ -11,7 +11,6 @@ class Solution:
         return []
 
 
-# O(n)
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         d = {}
