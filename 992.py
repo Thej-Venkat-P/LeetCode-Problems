@@ -16,9 +16,6 @@ class Solution:
                 counts[nums[right]] += 1
             
             if unique_count > k :
-                while counts[nums[left_near]] != 1 :
-                    counts[nums[left_near]] -= 1
-                    left_near += 1
                 del counts[nums[left_near]]
                 left_near += 1
                 left_far = left_near
