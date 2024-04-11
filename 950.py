@@ -29,3 +29,23 @@ class Solution:
                     ans.append(side_deck[i])
                 return ans
         return order(deck)
+    
+class Solution:
+    def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
+        deck.sort()
+        n = len(deck)
+        ans = [0]*n
+        dq=collections.deque(range(n))
+        for card in deck:
+            ans[dq.popleft()] = card
+            if dq:
+                dq.append(dq.popleft())
+        return ans
+
+class Solution:
+    def deckRevealedIncreasing(self, deck: List[int]) -> List[int]:
+        dq=collections.deque()
+        for card in reversed(sorted(deck)):
+            dq.rotate()
+            dq.appendleft(card)
+        return list(dq)
