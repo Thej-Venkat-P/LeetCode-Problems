@@ -20,3 +20,24 @@ class Solution:
         backtrack("", 0, [])
         return all_strings
 
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+        wordDict = set(wordDict)
+        n = len(s)
+
+        @lru_cache(None)
+        def backtrack(i):
+            if i == n:
+                return [[]]
+            all_valid_strings = []
+            string = ""
+            for j in range(i, n):
+                string += s[j]
+                if string in wordDict:
+                    valid_strings = backtrack(j + 1)
+                    for valid_string in valid_strings:
+                        all_valid_strings.append([string] + valid_string)
+            return all_valid_strings
+        
+        all_strings = [ " ".join(elem) for elem in backtrack(0)]
+        return all_strings
