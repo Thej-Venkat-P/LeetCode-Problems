@@ -30,3 +30,19 @@ class Solution(object):
                     return False
             divisor += 1
         return c % 4 != 3
+    
+
+# Two pointer Solution
+class Solution(object):
+    def judgeSquareSum(self, c):
+        left = 0
+        right = int(math.sqrt(c))
+        while left <= right:
+            s = left ** 2 + right ** 2
+            if s == c:
+                return True
+            if s < c:
+                left += 1
+            else:
+                right -= 1
+        return False
